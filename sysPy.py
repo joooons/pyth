@@ -1,20 +1,52 @@
 import sys
+import re
 
 def main():
     print('')
+
     if len(sys.argv) < 2:
-        print('please enter a command next time. Try something like \'create\'')
+        print('Please specify a command: [create] || [find]')
+        print('')
         return 0
+    
     if sys.argv[1] == 'create':
         if (len(sys.argv) < 3):
-            print('what should I create? Please specify next time.')
+            print('[create] :: what is the name of the file you would like to create?')
+        elif (len(sys.argv) < 4):
+            print('[create] :: what would you like to write in [{}.txt]?'.format(sys.argv[2]))
         else:
-            with open("output.text", "w") as file:
-                file.write('what is this thing?')
-                
-        return 0
-    else:
-        print('length of list of arguments is', len(sys.argv))
+            filename = "{}.txt".format(sys.argv[2])
+            content = ''
+            for i in range(3, len(sys.argv)):
+                content += sys.argv[i] + ' '
+            with open(filename, "w") as file:
+                file.write(content)
+                print('Successfully wrote some stuff into {}'.format(filename))
+    
+    if sys.argv[1] == 'find':
+        if (len(sys.argv) < 3):
+            print('[find] :: what file do you want to read?')
+        else:
+            filename = "{}.txt".format(sys.argv[2])
+            with open(filename, "r") as file:
+                str = file.read()
+                print("[{}] says this: {}".format(filename, str))
+
+    if sys.argv[1] == 'analyze':
+            if (len(sys.argv) < 3):
+                print('[analyze] :: what file do you want to analyze?')
+            else:
+                filename = "{}.txt".format(sys.argv[2])
+                with open(filename, "r") as file:
+                    str = file.read()
+                    print("[{}] says this: {}".format(filename, str))
+    
+    if re.match("(?!^create$|^find$|^analyze$)", sys.argv[1]):
+        print('Please specify a command: [create] || [find]')
+
+    
+    
+    print('')
     
 
 
