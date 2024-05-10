@@ -12,6 +12,7 @@ def on_move(x, y):
 
 def on_click(x, y, button, pressed):
     global count
+
     if pressed:
         count += 1
         print(count)
