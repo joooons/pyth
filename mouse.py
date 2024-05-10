@@ -1,8 +1,9 @@
-# import pyautogui as pag
-# import random
-# import time
-
+import pyautogui as pag
+import random
+import time
 from pynput import mouse
+
+count = 0
 
 
 def on_move(x, y):
@@ -10,12 +11,23 @@ def on_move(x, y):
 
 
 def on_click(x, y, button, pressed):
-    print('{0}'.format('clicked' if pressed else 'released'))
+    global count
+    if pressed:
+        count += 1
+        print(count)
     if not pressed:
-        return False
+        if count > 4:
+            print('released')
+            return False
 
 
-with mouse.Listener(
-        on_move=on_move,
-        on_click=on_click) as listener:
-    listener.join()
+def main():
+
+    with mouse.Listener(
+            # on_move=on_move,
+            on_click=on_click) as listener:
+        listener.join()
+
+
+if __name__ == "__main__":
+    main()
