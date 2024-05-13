@@ -1,3 +1,12 @@
+import random
+
+
+def array_of_int(min, max, n):
+    arr = []
+    for i in range(n):
+        arr.append(random.randrange(min, max))
+    return arr
+
 
 def bubble_sort(arr):
     n = len(arr)
@@ -7,6 +16,8 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
 
-arr = [1, 5, 3, 4, 2]
+arr = array_of_int(0, 9, 12)
+print(arr)
+
 bubble_sort(arr)
 print(arr)
