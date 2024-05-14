@@ -57,10 +57,32 @@ def insertion_sort(arr):
     return res
 
 
-@show_time_duration
+# @show_time_duration
 def merge_sort(arr):
     n = len(arr)
     res = arr[:]
+
+    if n <= 1:
+        return res
+
+    arA = merge_sort(res[:n//2])
+    arB = merge_sort(res[n//2:])
+    print(f'merge {arA} :: {arB}')
+
+    [a, b] = [0, 0]
+    for i in range(n):
+        if a == len(arA):
+            res[i] = arB[b]
+            b += 1
+        elif b == len(arB):
+            res[i] = arA[a]
+            a += 1
+        elif (arA[a] < arB[b]):
+            res[i] = arA[a]
+            a += 1
+        else:
+            res[i] = arB[b]
+            b += 1
 
     return res
 
@@ -74,13 +96,23 @@ def custom_sort(arr):
 
 
 def main():
-    arr = array_of_int(0, 9, 1000)
-    # print(arr)
+    arr = array_of_int(0, 9, 7)
+    print(arr)
+    # a = [1]
+    # b = [1, 5]
+    # c = [1, 5, 2]
+    # d = [1, 5, 2, 6]
 
-    ss_arr = selection_sort(arr)
-    bs_arr = bubble_sort(arr)
-    is_arr = insertion_sort(arr)
-    cs_arr = custom_sort(arr)
+    # ss_arr = selection_sort(arr)
+    # bs_arr = bubble_sort(arr)
+    # is_arr = insertion_sort(arr)
+    # ms_arr = merge_sort(a)
+    # ms_arr = merge_sort(b)
+    # ms_arr = merge_sort(c)
+    # ms_arr = merge_sort(d)
+    ms_arr = merge_sort(arr)
+    print(ms_arr)
+    # cs_arr = custom_sort(arr)
 
 
 if __name__ == "__main__":
