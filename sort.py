@@ -57,34 +57,32 @@ def insertion_sort(arr):
     return res
 
 
-# @show_time_duration
+@show_time_duration
 def merge_sort(arr):
-    n = len(arr)
-    res = arr[:]
-
-    if n <= 1:
+    def merge(arr):
+        n = len(arr)
+        res = arr[:]
+        if n <= 1:
+            return res
+        arA = merge(res[:n//2])
+        arB = merge(res[n//2:])
+        # print(f'merge {arA} :: {arB}')
+        [a, b] = [0, 0]
+        for i in range(n):
+            if a == len(arA):
+                res[i] = arB[b]
+                b += 1
+            elif b == len(arB):
+                res[i] = arA[a]
+                a += 1
+            elif (arA[a] < arB[b]):
+                res[i] = arA[a]
+                a += 1
+            else:
+                res[i] = arB[b]
+                b += 1
         return res
-
-    arA = merge_sort(res[:n//2])
-    arB = merge_sort(res[n//2:])
-    print(f'merge {arA} :: {arB}')
-
-    [a, b] = [0, 0]
-    for i in range(n):
-        if a == len(arA):
-            res[i] = arB[b]
-            b += 1
-        elif b == len(arB):
-            res[i] = arA[a]
-            a += 1
-        elif (arA[a] < arB[b]):
-            res[i] = arA[a]
-            a += 1
-        else:
-            res[i] = arB[b]
-            b += 1
-
-    return res
+    return merge(arr)
 
 
 @show_time_duration
