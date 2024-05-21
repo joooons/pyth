@@ -85,25 +85,50 @@ def merge_sort(arr):
     return merge(res)
 
 
+count = 0
+
+
+@show_time_duration
+def quick_sort(arr):
+    def quick(arr):
+        n = len(arr)
+        if n < 2:
+            return arr
+        arr_L = []
+        arr_R = []
+        for i in range(n-1):
+            if arr[i] < arr[n-1]:
+                arr_L.append(arr[i])
+            else:
+                arr_R.append(arr[i])
+        return quick(arr_L) + [arr[n-1]] + quick(arr_R)
+    return quick(arr)
+
+
 @show_time_duration
 def custom_sort(arr):
     n = len(arr)
     res = arr[:]
+
     return res
 
 
 def main():
-    arr = array_of_int(0, 9, 9)
+    arr = array_of_int(0, 9, 5000)
+    if len(arr) < 10:
+        print('og: ', arr)
 
-    ss_arr = selection_sort(arr)
-    bs_arr = bubble_sort(arr)
-    is_arr = insertion_sort(arr)
+    # ss_arr = selection_sort(arr)
+    # bs_arr = bubble_sort(arr)
+    # is_arr = insertion_sort(arr)
     ms_arr = merge_sort(arr)
-    cs_arr = custom_sort(arr)
+    # cs_arr = custom_sort(arr)
+    qs_arr = quick_sort(arr)
 
     if len(arr) < 10:
-        print(arr)
-        print(cs_arr)
+        print("ms: ", ms_arr)
+        print("qs: ", qs_arr)
+    print("equal?: ", ms_arr == qs_arr)
 
 
 if __name__ == "__main__":
