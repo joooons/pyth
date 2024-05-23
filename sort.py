@@ -94,14 +94,20 @@ def quick_sort(arr):
         n = len(arr)
         if n < 2:
             return arr
+
+        pivot = arr[-1]
         arr_L = []
         arr_R = []
+        arr_M = [pivot]
+
         for i in range(n-1):
-            if arr[i] < arr[n-1]:
+            if arr[i] < pivot:
                 arr_L.append(arr[i])
-            else:
+            elif arr[i] > pivot:
                 arr_R.append(arr[i])
-        return quick(arr_L) + [arr[n-1]] + quick(arr_R)
+            else:
+                arr_M.append(pivot)
+        return quick(arr_L) + arr_M + quick(arr_R)
     return quick(arr)
 
 
@@ -114,7 +120,7 @@ def custom_sort(arr):
 
 
 def main():
-    arr = array_of_int(0, 9, 5000)
+    arr = array_of_int(0, 10000, 10000)
     if len(arr) < 10:
         print('og: ', arr)
 
@@ -126,6 +132,7 @@ def main():
     qs_arr = quick_sort(arr)
 
     if len(arr) < 10:
+        # print("is: ", is_arr)
         print("ms: ", ms_arr)
         print("qs: ", qs_arr)
     print("equal?: ", ms_arr == qs_arr)
